@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="userid" value="s">
+    <input type="text" id="GroupId" value="内容">
+    <input type="text" id="tianxie" value="发送给谁">
+
+    <input type="button" onclick="Addgroup()" value="加入组">
+    <input type="button" onclick="fasong()" value="发送">
+    <input type="button" onclick="WebSocketTest()" value="链接登陆">
+</body>
+</html>
+<script>
+   
+ 
+       
+                var textsd=document.getElementById("userid").value;
+                 var ws = new WebSocket("ws://localhost:55976/ws?Id="+textsd);
+                
+                   ws.onopen = function()
+                {
+                console.log("1111");
+                };
+  
+  
+       
+           
+          
+
+           
+
+          
+          
+             
+               function fasong(){
+                 console.log(1111)
+                 var texts=document.getElementById("GroupId").value;
+                 var accpet=document.getElementById("tianxie").value;
+                 var textsd=document.getElementById("userid").value;
+               // ws.send('OpenBarScanner') var texts=document.getElementById("tianxie").value;
+                 
+                 ws.send(JSON.stringify({texts:"heelo",accpet:accpet,SendId:textsd}))
+              
+            
+             }
+       
+                  ws.onmessage = function (evt) 
+               { 
+                  var received_msg = evt.data;
+                  console.log("数据已接收...",evt.data);
+               }
+             
+                
+               ws.onclose = function()
+               { 
+                  // 关闭 websocket
+                  console.log("连接已关闭..."); 
+               }; 
+               ws.onerror=function(){
+                console.log("失败")
+             }
+</script>
